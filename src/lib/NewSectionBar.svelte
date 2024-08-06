@@ -38,5 +38,6 @@
 <style>
     div {
         display: flex;
+        gap: 10px;
     }
 </style>

@@ -3,9 +3,11 @@
     import Section from "$lib/Section.svelte";
     import { auto_resize } from "$lib/AutoResize";
     import NewSectionBar from "$lib/NewSectionBar.svelte";
+    import logo from "$lib/img/jorno.svg";
     import { save_jorno } from "$lib/Jorno";
     import { ask } from "@tauri-apps/api/dialog";
     import { goto } from "$app/navigation";
+    import autosize from "autosize";
 
     export let data: PageData;
 
@@ -31,9 +33,10 @@
 </script>
 
 <div class="navigation_bar">
-    <button on:click={back}>Back</button>
-    <button on:click={save}>Save</button>
+    <button on:click={back} class="nav_button">Back</button>
+    <button on:click={save} class="nav_button">Save</button>
     <p>{status}</p>
+    <img src={logo} alt="Jorno Logo" />
 </div>
 <textarea
     bind:value={data.name}
@@ -53,39 +56,49 @@
 {/if}
 
 <style lang="scss">
-    @use "../../../style.scss";
-    .date_input {
-        border: 0;
-        background-color: lightgrey;
-        font-size: 1.5em;
-    }
-
-    .name {
-        @extend .input_default;
-        font-weight: 900;
-        font-size: 3em;
-        height: 1.2em;
-        border-bottom: solid black 1px;
-    }
-
-    .name:focus {
-        border-bottom: solid black 3px;
-        margin-bottom: -2px;
-    }
-
-    .empty_new_section_bar {
-        display: flex;
-        justify-content: center;
-    }
+    @use "/src/style" as *;
 
     .navigation_bar {
         display: flex;
-        padding-bottom: 5px;
-        margin-bottom: 10px;
-        border-bottom: solid 1px;
+        gap: 10px;
+        position: sticky;
+        padding-bottom: 10px;
+        background-color: $background_color;
+        top: 0;
+        button {
+            @include clickable_default;
+            border-radius: 0;
+            width: 5%;
+        }
+
+        p {
+            width: 95%;
+            color: $text_color;
+        }
+
+        img {
+            width: 3%;
+            right: 0;
+            top: 0;
+        }
+    }
+    textarea {
+        @include input_default;
+        font-size: 3em;
+        font-weight: 900;
     }
 
-    .navigation_bar > * {
-        margin-left: 5px;
+    .date_input {
+        @include clickable_default;
+        font-size: 1.5em;
+        margin: {
+            top: 10px;
+            bottom: 10px;
+        }
     }
+
+    .empty_new_section_bar {
+        @include center_content;
+    }
+
 </style>

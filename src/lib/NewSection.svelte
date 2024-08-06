@@ -28,3 +28,10 @@
 <div>
     <button on:click={() => addSection(type, default_data)}>+{text}</button>
 </div>
+
+<style lang="scss">
+    @use "/src/style" as *;
+    button {
+        @include clickable_default;
+    }
+</style>

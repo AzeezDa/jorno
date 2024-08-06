@@ -22,7 +22,7 @@
 />
 
 <style lang="scss">
-    @use "/src/style.scss";
+    @use "/src/style" as *;
     $header_font_sizes_weights:
         "1" 2em 900,
         "2" 1.5em bold,
@@ -30,16 +30,10 @@
 
     @each $level, $font_size, $font_weight in $header_font_sizes_weights {
         .header_#{$level} {
-            @extend .input_default;
+            @include input_default;
             font-weight: $font_weight;
             font-size: $font_size;
-            border-bottom: solid black 1px;
             height: 1.2em;
-        }
-
-        .header_#{$level}:focus {
-            border-bottom: solid black 3px;
-            margin-bottom: -2px;
         }
     }
 </style>

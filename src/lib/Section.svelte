@@ -29,18 +29,21 @@
     </div>
 </div>
 
-<style>
+<style lang="scss">
+    @use "/src/style" as *;
     .edit_bar {
         display: none;
         justify-content: center;
+        margin-bottom: 1em;
     }
 
-    .section:hover > .edit_bar {
+    .section:hover > .edit_bar, .edit_bar:hover {
         display:flex;
     }
 
     .remove_button {
+        @include clickable_default;
         margin-right: 50px;
-        background-color: red;
+        background-color: $p_red;
     }
 </style>

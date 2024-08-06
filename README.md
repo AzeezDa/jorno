@@ -1,7 +1,9 @@
-# Tauri + SvelteKit + TypeScript
+# jorno - The Journal App
 
-This template should help get you started developing with Tauri, SvelteKit and TypeScript in Vite.
+<p align="center">
+<img src="src/lib/img/jornofulllight.svg" alt="drawing" width="300" />
+</p>
 
-## Recommended IDE Setup
+Built with [Tauri](https://tauri.app/), [Svelte](https://svelte.dev/) and [Vite](https://vitejs.dev/).
 
-[VS Code](https://code.visualstudio.com/) + [Svelte](https://marketplace.visualstudio.com/items?itemName=svelte.svelte-vscode) + [Tauri](https://marketplace.visualstudio.com/items?itemName=tauri-apps.tauri-vscode) + [rust-analyzer](https://marketplace.visualstudio.com/items?itemName=rust-lang.rust-analyzer).
+# WORK IN PROGRESS

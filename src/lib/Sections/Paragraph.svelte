@@ -22,10 +22,10 @@
 />
 
 <style lang="scss">
-    @use "/src/style.scss";
+    @use "/src/style" as *;
 
     .input {
-        @extend .input_default;
+        @include input_default;
         border-left: solid black 1px;
     }
 
