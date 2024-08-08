@@ -10,6 +10,7 @@
     import BigButton from "$lib/Components/BigButton.svelte";
 
     const STATUS_CLEAR_TIMEOUT_MS: number = 5000;
+    const STATUS_CLEAR_CHARACTER_INTERVAL: number = 20;
 
     export let data: PageData;
 
@@ -26,8 +27,15 @@
         }
 
         setTimeout(() => {
-            status = "";
-            warning_status = false;
+            const interval = setInterval(() => {
+                if (status == "") {
+                    clearInterval(interval);
+                    warning_status = false;
+                    return;
+                }
+                
+                status = status.substring(0, status.length - 1);
+            }, STATUS_CLEAR_CHARACTER_INTERVAL);
         }, STATUS_CLEAR_TIMEOUT_MS);
     }
 
@@ -43,11 +51,11 @@
 </script>
 
 <div
-    class="sticky flex top-0 h-20 gap-2 bg-white mb-6 p-2 pt-1 pb-4 shadow-2xl w-full" 
+    class="sticky flex top-0 h-20 gap-2 bg-white mb-6 p-2 pt-1 pb-4 shadow-2xl w-full"
 >
     <BigButton click={back}>Back</BigButton>
     <BigButton click={save}>Save</BigButton>
-    <p class:warning_status class="w-screen m-auto">{status}</p>
+    <p class:warning_status class="w-screen mt-5">{status}</p>
     <img src={logo} alt="Jorno Logo" class="h-20 mr-2" />
 </div>
 <div class="grid grid-cols-1 pr-5 pl-5">
