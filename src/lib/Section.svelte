@@ -1,5 +1,6 @@
 <script lang="ts">
     import type { Section } from "$lib/Jorno";
+    import BigButton from "./Components/BigButton.svelte";
     import NewSectionBar from "./NewSectionBar.svelte";
     import Header from "./Sections/Header.svelte";
     import Image from "./Sections/Image.svelte";
@@ -13,7 +14,7 @@
     }
 </script>
 
-<div class="section">
+<div class="section group">
     {#if section.type == "Header"}
         <Header bind:data={section.data} />
     {/if}
@@ -23,27 +24,8 @@
     {#if section.type == "Paragraph"}
         <Paragraph bind:data={section.data} />
     {/if}
-    <div class="edit_bar">
-        <button on:click={removeSelf} class="remove_button">Remove</button>
+    <div class="flex pb-5 justify-center gap-32 scale-y-0 h-0 group-hover:scale-y-100 group-hover:h-auto transition-all ease-in-out">
+        <BigButton version={2} click={removeSelf}>Remove</BigButton>
         <NewSectionBar bind:sections bind:section />
     </div>
 </div>
-
-<style lang="scss">
-    @use "/src/style" as *;
-    .edit_bar {
-        display: none;
-        justify-content: center;
-        margin-bottom: 1em;
-    }
-
-    .section:hover > .edit_bar, .edit_bar:hover {
-        display:flex;
-    }
-
-    .remove_button {
-        @include clickable_default;
-        margin-right: 50px;
-        background-color: $p_red;
-    }
-</style>

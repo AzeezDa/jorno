@@ -11,6 +11,8 @@
 </script>
 
 <script lang="ts">
+    import BigButton from "$lib/Components/BigButton.svelte";
+
     export let data: Data = default_image();
 
     let image: HTMLImageElement;
@@ -69,68 +71,29 @@
     }
 </script>
 
-<div class="edit_section">
+<div 
+    class="absolute grid left-1/2 -translate-x-1/2 bg-white bg-opacity-50 p-2 rounded 
+    transition-all scale-x-0 [&:has(+img:hover)]:scale-x-100 hover:scale-x-100">
     <input
         type="range"
         min="10"
         max="100"
         bind:value={data.zoom}
         on:input={onZoom}
+        class="accent-orange mb-1"
     />
-    <button on:click={onUploadClick}>{upload_button_text}</button>
-    <div bind:this={upload_div} class="upload_div">
+    <div bind:this={upload_div} class="grid">
         <input
             type="text"
             placeholder="URL"
             bind:value={input_url}
             on:change={onURLInputChange}
+            class="mb-2"
         />
-        <label>
-            <input type="file" bind:this={file_upload} on:change={onUpload} />
+        <label class="cursor-pointer bg-black p-1 rounded text-white font-bold hover:text-black hover:bg-white transition-all">
+            <input type="file" bind:this={file_upload} on:change={onUpload} class="hidden"/>
             Upload From Local Disk
         </label>
     </div>
 </div>
-<img src={data.url} alt={data.alt} bind:this={image} on:load={onZoom} />
-
-<style lang="scss">
-    @use "/src/style" as *;
-
-    img {
-        @include center_self("");
-    }
-
-    .edit_section {
-        @include visible_on_hover("&:has(+ img:hover)");
-        width: 50%;
-        max-width: 360px;
-        display: grid;
-        position: absolute;
-        left: 0;
-        right: 0;
-        margin: auto;
-
-        button {
-            @include clickable_default;
-        }
-    }
-
-    .upload_div {
-        @include center_content;
-        visibility: hidden;
-        padding: 10px;
-        display: grid;
-
-        input {
-            @include input_setting_default;
-        }
-        label {
-            @include clickable_default(0.8em, 800);
-            input {
-                display: none;
-            }
-            width: 100%;
-            margin-top: 10px;
-        }
-    }
-</style>
+<img src={data.url} alt={data.alt} bind:this={image} on:load={onZoom} class="m-auto pb-1" />

@@ -9,7 +9,7 @@
     export let section: Section | null;
 </script>
 
-<div>
+<div class="flex place-content-center gap-2">
     {#each { length: 3 } as _, i}
         <NewSection
             bind:sections
@@ -34,10 +34,3 @@
         default_data={default_paragraph()}
     />
 </div>
-
-<style>
-    div {
-        display: flex;
-        gap: 10px;
-    }
-</style>

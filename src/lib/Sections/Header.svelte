@@ -10,30 +10,21 @@
 
 <script lang="ts">
     import { auto_resize } from "../AutoResize";
-    
+
     export let data: Data = default_header(1);
+
+    const text_size_map = new Map<number, string>([
+        [1, "text-3xl font-extrabold"],
+        [2, "text-2xl font-bold"],
+        [3, "text-xl font-semibold"],
+    ]);
+
+    $: font_size = text_size_map.get(data.level);
 </script>
 
 <textarea
     bind:value={data.text}
-    class="header_{data.level}"
+    class="{font_size} w-full text-black bg-white focus:text-white focus:bg-black transition-all"
     use:auto_resize
     placeholder="Header {data.level}"
 />
-
-<style lang="scss">
-    @use "/src/style" as *;
-    $header_font_sizes_weights:
-        "1" 2em 900,
-        "2" 1.5em bold,
-        "3" 1.25em bold;
-
-    @each $level, $font_size, $font_weight in $header_font_sizes_weights {
-        .header_#{$level} {
-            @include input_default;
-            font-weight: $font_weight;
-            font-size: $font_size;
-            height: 1.2em;
-        }
-    }
-</style>

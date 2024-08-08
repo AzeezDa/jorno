@@ -7,6 +7,7 @@
     import { save_jorno } from "$lib/Jorno";
     import { ask } from "@tauri-apps/api/dialog";
     import { goto } from "$app/navigation";
+    import BigButton from "$lib/Components/BigButton.svelte";
 
     const STATUS_CLEAR_TIMEOUT_MS: number = 5000;
 
@@ -41,77 +42,40 @@
     }
 </script>
 
-<div class="navigation_bar">
-    <button on:click={back} class="nav_button">Back</button>
-    <button on:click={save} class="nav_button">Save</button>
-    <p class:warning_status>{status}</p>
-    <img src={logo} alt="Jorno Logo" />
+<div
+    class="sticky flex top-0 h-20 gap-2 bg-white mb-6 p-2 pt-1 pb-4 shadow-2xl w-full" 
+>
+    <BigButton click={back}>Back</BigButton>
+    <BigButton click={save}>Save</BigButton>
+    <p class:warning_status class="w-screen m-auto">{status}</p>
+    <img src={logo} alt="Jorno Logo" class="h-20 mr-2" />
 </div>
-<textarea
-    bind:value={data.name}
-    class="name"
-    use:auto_resize
-    placeholder="Journal Entry Name"
-/>
-<input type="datetime-local" bind:value={data.date} class="date_input" />
-{#if data.sections.length > 0}
-    {#each data.sections as s}
-        <Section bind:section={s} bind:sections={data.sections} />
-    {/each}
-{:else}
-    <div class="empty_new_section_bar">
-        <NewSectionBar bind:sections={data.sections} section={null} />
-    </div>
-{/if}
+<div class="grid grid-cols-1 pr-5 pl-5">
+    <textarea
+        bind:value={data.name}
+        use:auto_resize
+        class="font-extrabold text-5xl bg-white text-black focus:bg-black focus:text-white transition-all"
+        placeholder="Journal Entry Name"
+    />
+    <input
+        type="datetime-local"
+        bind:value={data.date}
+        class="w-1/12 min-w-60 text-2xl bg-white text-black focus:bg-black focus:text-white rounded-xl p-1 transition-all"
+    />
+    {#if data.sections.length > 0}
+        {#each data.sections as s}
+            <Section bind:section={s} bind:sections={data.sections} />
+        {/each}
+    {:else}
+        <div class="empty_new_section_bar">
+            <NewSectionBar bind:sections={data.sections} section={null} />
+        </div>
+    {/if}
+</div>
 
-<style lang="scss">
-    @use "/src/style" as *;
-
-    .navigation_bar {
-        display: flex;
-        gap: 10px;
-        position: sticky;
-        padding-bottom: 10px;
-        background-color: $background_color;
-        top: 0;
-        button {
-            @include clickable_default;
-            border-radius: 0;
-            width: 5%;
-        }
-
-        p {
-            width: 95%;
-            color: $text_color;
-        }
-
-        img {
-            width: 3%;
-            right: 0;
-            top: 0;
-        }
-    }
-    textarea {
-        @include input_default;
-        font-size: 3em;
-        font-weight: 900;
-    }
-
-    .date_input {
-        @include clickable_default;
-        font-size: 1.5em;
-        margin: {
-            top: 10px;
-            bottom: 10px;
-        }
-    }
-
-    .empty_new_section_bar {
-        @include center_content;
-    }
-
-    .warning_status {  
-        color: $p_red !important;
-        font-weight: 900;
+<style lang="postcss">
+    .warning_status {
+        color: theme(colors.red);
+        font-weight: theme(fontWeight.extrabold);
     }
 </style>

@@ -17,20 +17,6 @@
 <textarea
     bind:value={data.text}
     use:auto_resize
-    class="input"
+    class="w-full bg-white text-black p-1 focus:text-white focus:bg-black focus:outline-none transition-all"
     placeholder="Paragraph..."
 />
-
-<style lang="scss">
-    @use "/src/style" as *;
-
-    .input {
-        @include input_default;
-        border-left: solid black 1px;
-    }
-
-    .input:focus {
-        border-left: solid black 3px;
-        margin-left: -2px;
-    }
-</style>
