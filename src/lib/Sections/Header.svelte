@@ -10,14 +10,14 @@
 
 <script lang="ts">
     import { auto_resize } from "../AutoResize";
-
+    
     export let data: Data = default_header(1);
 </script>
 
 <textarea
     bind:value={data.text}
     class="header_{data.level}"
-    on:input={auto_resize}
+    use:auto_resize
     placeholder="Header {data.level}"
 />
 

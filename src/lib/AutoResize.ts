@@ -1,5 +1,12 @@
 import autosize from "autosize";
+import type { Action } from "svelte/action";
 
-export function auto_resize(event: Event) {
-    autosize(event.target as Element)
-}
+export const auto_resize: Action = (node) => {
+    autosize(node);
+
+    return {
+        destroy() {
+            autosize.destroy(node);
+        },
+    };
+};

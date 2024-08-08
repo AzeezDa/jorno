@@ -16,7 +16,7 @@
 
 <textarea
     bind:value={data.text}
-    on:input={auto_resize}
+    use:auto_resize
     class="input"
     placeholder="Paragraph..."
 />

@@ -7,18 +7,27 @@
     import { save_jorno } from "$lib/Jorno";
     import { ask } from "@tauri-apps/api/dialog";
     import { goto } from "$app/navigation";
-    import autosize from "autosize";
+
+    const STATUS_CLEAR_TIMEOUT_MS: number = 5000;
 
     export let data: PageData;
 
     let status = "";
+    let warning_status = false;
     async function save() {
         let return_value = await save_jorno(data);
         if (return_value) {
             status = "Saved at: " + return_value;
+            warning_status = false;
         } else {
-            status = "Error while saving";
+            status = "The file was not saved!";
+            warning_status = true;
         }
+
+        setTimeout(() => {
+            status = "";
+            warning_status = false;
+        }, STATUS_CLEAR_TIMEOUT_MS);
     }
 
     async function back() {
@@ -35,13 +44,13 @@
 <div class="navigation_bar">
     <button on:click={back} class="nav_button">Back</button>
     <button on:click={save} class="nav_button">Save</button>
-    <p>{status}</p>
+    <p class:warning_status>{status}</p>
     <img src={logo} alt="Jorno Logo" />
 </div>
 <textarea
     bind:value={data.name}
     class="name"
-    on:input={auto_resize}
+    use:auto_resize
     placeholder="Journal Entry Name"
 />
 <input type="datetime-local" bind:value={data.date} class="date_input" />
@@ -101,4 +110,8 @@
         @include center_content;
     }
 
+    .warning_status {  
+        color: $p_red !important;
+        font-weight: 900;
+    }
 </style>
