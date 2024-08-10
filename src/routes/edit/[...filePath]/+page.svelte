@@ -1,13 +1,13 @@
 <script lang="ts">
     import type { PageData } from "./$types";
     import Section from "$lib/Section.svelte";
-    import { auto_resize } from "$lib/AutoResize";
     import NewSectionBar from "$lib/NewSectionBar.svelte";
     import logo from "$lib/img/jorno.svg";
     import { save_jorno } from "$lib/Jorno";
     import { ask } from "@tauri-apps/api/dialog";
     import { goto } from "$app/navigation";
-    import BigButton from "$lib/Components/BigButton.svelte";
+    import BigButton from "$lib/Components/Button.svelte";
+    import TextArea from "$lib/Components/TextArea.svelte";
 
     const STATUS_CLEAR_TIMEOUT_MS: number = 5000;
     const STATUS_CLEAR_CHARACTER_INTERVAL: number = 20;
@@ -16,6 +16,8 @@
 
     let status = "";
     let warning_status = false;
+    let text_timeout: number | null = null;
+    let text_interval: number | null = null;
     async function save() {
         let return_value = await save_jorno(data);
         if (return_value) {
@@ -26,14 +28,19 @@
             warning_status = true;
         }
 
-        setTimeout(() => {
-            const interval = setInterval(() => {
+        if (text_timeout) {
+            clearTimeout(text_timeout);
+            clearInterval(text_interval as number)
+        }
+        text_timeout = setTimeout(() => {
+            text_interval = setInterval(() => {
                 if (status == "") {
-                    clearInterval(interval);
+                    clearInterval(text_interval as number);
                     warning_status = false;
                     return;
                 }
                 
+                // Remove last letter
                 status = status.substring(0, status.length - 1);
             }, STATUS_CLEAR_CHARACTER_INTERVAL);
         }, STATUS_CLEAR_TIMEOUT_MS);
@@ -51,24 +58,28 @@
 </script>
 
 <div
-    class="sticky flex top-0 h-20 gap-2 bg-white mb-6 p-2 pt-1 pb-4 shadow-2xl w-full"
+    class="sticky flex top-0 h-20 gap-2 bg-white dark:bg-black mb-6 p-2 pt-1 pb-4 shadow-2xl w-full"
 >
-    <BigButton click={back}>Back</BigButton>
-    <BigButton click={save}>Save</BigButton>
-    <p class:warning_status class="w-screen mt-5">{status}</p>
+    <BigButton click={back} class="p-5">Back</BigButton>
+    <BigButton click={save} class="p-5">Save</BigButton>
+    <p class:warning_status class="w-screen mt-5 text-black dark:text-white">
+        {status}
+    </p>
     <img src={logo} alt="Jorno Logo" class="h-20 mr-2" />
 </div>
 <div class="grid grid-cols-1 pr-5 pl-5">
-    <textarea
+    <TextArea
         bind:value={data.name}
-        use:auto_resize
-        class="font-extrabold text-5xl bg-white text-black focus:bg-black focus:text-white transition-all"
         placeholder="Journal Entry Name"
+        class="font-extrabold text-5xl"
     />
     <input
         type="datetime-local"
         bind:value={data.date}
-        class="w-1/12 min-w-60 text-2xl bg-white text-black focus:bg-black focus:text-white rounded-xl p-1 transition-all"
+        class="w-1/12 min-w-60 text-2xl
+        bg-white text-black focus:bg-black focus:text-white
+        dark:bg-black dark:text-white dark:focus:bg-white dark:focus:text-black
+        rounded-xl p-1 transition-all"
     />
     {#if data.sections.length > 0}
         {#each data.sections as s}

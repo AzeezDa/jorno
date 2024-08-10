@@ -9,7 +9,7 @@
 </script>
 
 <script lang="ts">
-    import { auto_resize } from "../AutoResize";
+    import TextArea from "$lib/Components/TextArea.svelte";
 
     export let data: Data = default_header(1);
 
@@ -22,9 +22,8 @@
     $: font_size = text_size_map.get(data.level);
 </script>
 
-<textarea
+<TextArea
     bind:value={data.text}
-    class="{font_size} w-full text-black bg-white focus:text-white focus:bg-black transition-all"
-    use:auto_resize
+    class={font_size}
     placeholder="Header {data.level}"
 />

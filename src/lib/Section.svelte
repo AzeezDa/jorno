@@ -1,6 +1,6 @@
 <script lang="ts">
     import type { Section } from "$lib/Jorno";
-    import BigButton from "./Components/BigButton.svelte";
+    import BigButton from "./Components/Button.svelte";
     import NewSectionBar from "./NewSectionBar.svelte";
     import Header from "./Sections/Header.svelte";
     import Image from "./Sections/Image.svelte";
@@ -24,8 +24,8 @@
     {#if section.type == "Paragraph"}
         <Paragraph bind:data={section.data} />
     {/if}
-    <div class="flex pb-5 justify-center gap-32 scale-y-0 h-0 group-hover:scale-y-100 group-hover:h-auto transition-all ease-in-out">
-        <BigButton version={2} click={removeSelf}>Remove</BigButton>
+    <div class="flex pb-5 justify-center gap-x-32 gap-y-2 flex-wrap scale-y-0 h-0 group-hover:scale-y-100 group-hover:h-auto transition-all ease-in-out">
         <NewSectionBar bind:sections bind:section />
+        <BigButton version={2} click={removeSelf} class="p-1">Remove</BigButton>
     </div>
 </div>

@@ -9,7 +9,7 @@
     export let section: Section | null;
 </script>
 
-<div class="flex place-content-center gap-2">
+<div class="flex place-content-center flex-wrap gap-2">
     {#each { length: 3 } as _, i}
         <NewSection
             bind:sections

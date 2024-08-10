@@ -1,6 +1,6 @@
 <script lang="ts">
-    import BigButton from "./Components/BigButton.svelte";
-import type { Section } from "./Jorno";
+    import BigButton from "./Components/Button.svelte";
+    import type { Section } from "./Jorno";
 
     export let sections: Array<Section>;
     export let after: Section | null;
@@ -26,4 +26,4 @@ import type { Section } from "./Jorno";
     }
 </script>
 
-<BigButton click={() => addSection(type, default_data)}>+{text}</BigButton>
+<BigButton click={() => addSection(type, default_data)} class="p-1">+{text}</BigButton>

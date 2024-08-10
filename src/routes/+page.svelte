@@ -2,7 +2,7 @@
     import { JORNO_FILE_FILTERS, new_jorno, save_jorno } from "$lib/Jorno";
     import { open } from "@tauri-apps/api/dialog";
     import { goto } from "$app/navigation";
-    import Button from "$lib/Components/BigButton.svelte";
+    import Button from "$lib/Components/Button.svelte";
     import logo_full_light from "$lib/img/jornofulllight.svg";
     import logo_full_dark from "$lib/img/jornofulldark.svg";
 
@@ -23,9 +23,10 @@
     }
 </script>
 
-<img src={logo_full_dark} alt="hello" class="m-auto w-7/12 mt-10" />
+<img src={logo_full_light} alt="Jorno Logo" class="m-auto w-7/12 mt-10 hidden dark:block" />
+<img src={logo_full_dark} alt="Jorno Logo" class="m-auto w-7/12 mt-10 dark:hidden" />
 
 <div class="flex place-content-center gap-12 text-3xl mt-24">
-    <Button click={new_file}>New File</Button>
-    <Button click={open_file}>Open File</Button>
+    <Button click={new_file} class="p-5">New File</Button>
+    <Button click={open_file} class="p-5">Open File</Button>
 </div>

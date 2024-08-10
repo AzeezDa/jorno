@@ -9,14 +9,12 @@
 </script>
 
 <script lang="ts">
-    import { auto_resize } from "$lib/AutoResize";
+    import TextArea from "$lib/Components/TextArea.svelte";
 
     export let data: Data = { text: "" };
 </script>
 
-<textarea
+<TextArea
     bind:value={data.text}
-    use:auto_resize
-    class="w-full bg-white text-black p-1 focus:text-white focus:bg-black focus:outline-none transition-all"
     placeholder="Paragraph..."
 />
