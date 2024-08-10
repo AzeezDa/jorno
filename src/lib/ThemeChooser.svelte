@@ -1,24 +1,37 @@
 <script lang="ts">
-    import { Theme, current_theme_setting } from "$lib/ThemeChooser";
+    import {
+        get_theme_setting,
+        set_theme,
+        set_theme_setting,
+        Theme,
+    } from "$lib/ThemeChooser";
+    import { onMount } from "svelte";
 
     interface ThemeData {
         theme: Theme;
         emoji: string;
     }
 
-    let current_theme_index: number = 0;
     export const themes: Array<ThemeData> = [
         { theme: Theme.DARK, emoji: "🌒" },
         { theme: Theme.LIGHT, emoji: "☀️" },
         { theme: Theme.SYSTEM, emoji: "🖥️" },
     ];
+    let current_theme_index: number = 0;
+    onMount(async () => {
+        const theme: Theme = await get_theme_setting();
+        set_theme(theme);
+        current_theme_index = themes.findIndex(
+            (theme_data: ThemeData) => theme == theme_data.theme,
+        );
+    });
+
+    $: emoji = themes[current_theme_index].emoji;
 
     const next_theme = () => {
         current_theme_index = (current_theme_index + 1) % themes.length;
-        current_theme_setting.set(themes[current_theme_index].theme);
+        set_theme_setting(themes[current_theme_index].theme);
     };
-
-    $: emoji = themes[current_theme_index].emoji;
 </script>
 
 <button
