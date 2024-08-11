@@ -6,8 +6,12 @@
 
 Built with [Tauri](https://tauri.app/), [Svelte](https://svelte.dev/), [Vite](https://vitejs.dev/), and [Tailwind CSS](https://tailwindcss.com/).
 
-## Demonstrative Images
-### Editing
+## Demonstrations
+### Video
+[![YouTube video demonstrating the jorno application](https://img.youtube.com/vi/cQ_3U-2O6Bo/mqdefault.jpg)](https://youtu.be/cQ_3U-2O6Bo)
+
+### Images
+#### Editing
 <details>
 <summary>View of the window where a jorno file can be edited</summary>
 <img src="./images/jorno_demo_file.png" alt="Screenshot of jorno file being edited" width=50%>
@@ -23,7 +27,7 @@ Built with [Tauri](https://tauri.app/), [Svelte](https://svelte.dev/), [Vite](ht
 <img src="./images/jorno_demo_image_edit.png" alt="Screenshot of an image being hovered in a jorno file being edited" width=30%>
 </details>
 
-### Theme Modes
+#### Theme Modes
 The theme mode can be changed by hovering and clicking on the peeking button on the bottom right corner.
 <details>
 <summary>View of the main menu when the theme mode is based on the system preference</summary>
