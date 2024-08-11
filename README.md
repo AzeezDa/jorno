@@ -1,4 +1,4 @@
-# jorno - The Journal App
+# jorno - The Journaling App
 
 <p align="center">
 <img src="src/lib/img/jornofulllight.svg" alt="drawing" width="300" />
