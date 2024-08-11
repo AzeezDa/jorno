@@ -1,7 +1,7 @@
-import { goto } from "$app/navigation";
-import { open, save } from "@tauri-apps/api/dialog";
+import { save } from "@tauri-apps/api/dialog";
 import { readTextFile, writeTextFile } from "@tauri-apps/api/fs";
 import moment from "moment";
+import { writable, type Writable } from "svelte/store";
 
 const DATETIME_LOCAL_FORMATTING = "YYYY-MM-DD[T]HH:mm";
 export const JORNO_FILE_FILTERS = [
@@ -22,6 +22,11 @@ export type Jorno = {
     name: string
     date: string
     sections: Array<Section>
+}
+
+export interface CurrentlyEdited {
+    path: string
+    jorno: Jorno
 }
 
 export function new_jorno(name: string): Jorno {
@@ -51,3 +56,5 @@ export async function open_jorno(filePath: string): Promise<Jorno | null> {
         return null;
     }
 }
+
+export const currently_editing: Writable<CurrentlyEdited | null> = writable(null);
