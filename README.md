@@ -1,3 +1,8 @@
+> [!CAUTION]
+> This project was created with the sole purpose to understand how Svelte and Tauri works.
+> Therefore, I will not maintain this project and have thus decided to archive it.
+> Feel free to read the code and take inspiration from it, but note that it has not been updated in a long while.
+
 # jorno - The Journaling App
 
 <p align="center">
